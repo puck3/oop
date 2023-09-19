@@ -3,8 +3,9 @@ project(LW1)
 
 find_package(GTest REQUIRED)
 
-add_executable(main main.cpp)
-target_link_libraries(main ${GTEST_LIBRARIES}
-${CMAKE_THREAD_LIBS_INIT})
-enable_testing()
-add_test(tests main)
+add_library(${CMAKE_PROJECT_NAME}_lib vowels_count.cpp)
+add_executable(${CMAKE_PROJECT_NAME}_exe main.cpp)
+add_executable(${CMAKE_PROJECT_NAME}_test tests.cpp)
+
+target_link_libraries(${CMAKE_PROJECT_NAME}_exe ${CMAKE_PROJECT_NAME}_lib)
+target_link_libraries(${CMAKE_PROJECT_NAME}_test ${CMAKE_PROJECT_NAME}_lib ${GTEST_LIBRARIES})
