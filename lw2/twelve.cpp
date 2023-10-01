@@ -27,16 +27,13 @@ unsigned char dec_to_twelve(const int& digit) noexcept {
 }
 
 Twelve::Twelve() {
-    // std::cout << "Default constructor" << std::endl;
     size = 1;
     capacity = RESERVE;
     value = new unsigned char[capacity] {'0'};
 }
 
 Twelve::Twelve(const size_t& size, const unsigned char digit) {
-    // std::cout << "Fill constructor" << std::endl;
     twelve_check(digit);
-    // this->size = size;
     this->size = (digit != '0') ? size : 1;
     capacity = size + RESERVE;
     value = new unsigned char[capacity];
@@ -46,7 +43,6 @@ Twelve::Twelve(const size_t& size, const unsigned char digit) {
 }
 
 Twelve::Twelve(const std::string& number) {
-    // std::cout << "Copy string constructor" << std::endl;
     size = number.size();
     capacity = size + RESERVE;
     value = new unsigned char[capacity];
@@ -67,7 +63,6 @@ Twelve::Twelve(const std::string& number) {
 Twelve::Twelve(const std::initializer_list<unsigned char>& list) : Twelve(std::string(list.begin(), list.end())) {}
 
 Twelve::Twelve(const Twelve& other) {
-    // std::cout << "Copy constructor" << std::endl;
     size = other.size;
     capacity = size + RESERVE;
     value = new unsigned char[capacity];
@@ -77,7 +72,6 @@ Twelve::Twelve(const Twelve& other) {
 }
 
 Twelve::Twelve(Twelve&& other) noexcept {
-    // std::cout << "Move constructor" << std::endl;
     size = other.size;
     capacity = other.capacity;
     value = other.value;
@@ -154,6 +148,8 @@ Twelve& Twelve::operator=(Twelve&& other) noexcept {
 }
 
 Twelve& Twelve::operator+= (const Twelve& other) {
+    empty_check(*this);
+    empty_check(other);
     const Twelve& max = (size >= other.size) ? *this : other;
     const size_t& min_size = (size <= other.size) ? size : other.size;
     if (capacity <= max.size) {
@@ -188,6 +184,8 @@ Twelve& Twelve::operator+= (const Twelve& other) {
 }
 
 Twelve& Twelve::operator-= (const Twelve& other) {
+    empty_check(*this);
+    empty_check(other);
     if (*this < other) {
         throw std::invalid_argument("Left argument less then right");
     }
@@ -254,6 +252,6 @@ std::string Twelve::get_value() const noexcept {
 }
 
 std::ostream& operator<<(std::ostream& os, const Twelve& number) {
-    // empty_check(number);
+    empty_check(number);
     return os << number.get_value();
 }
