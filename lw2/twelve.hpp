@@ -4,6 +4,8 @@
 #include <iostream>
 
 class Twelve {
+    friend void empty_check(const Twelve&);
+
 public:
     Twelve();
     Twelve(const size_t&, const unsigned char t = '0');
@@ -12,7 +14,6 @@ public:
     Twelve(const Twelve&);
     Twelve(Twelve&&) noexcept;
 
-    bool empty() const noexcept;
     std::string get_value() const noexcept;
 
     bool operator== (const Twelve&) const noexcept;
@@ -22,16 +23,14 @@ public:
     bool operator< (const Twelve&) const noexcept;
     bool operator>= (const Twelve&) const noexcept;
 
-    Twelve operator+ (const Twelve&) const;
-    Twelve operator- (const Twelve&) const;
+    Twelve& operator= (const Twelve&);
+    Twelve& operator= (Twelve&&) noexcept;
 
     Twelve& operator+= (const Twelve&);
     Twelve& operator-= (const Twelve&);
 
-
-    Twelve& operator= (const Twelve&);
-    Twelve& operator= (Twelve&&) noexcept;
-
+    Twelve operator+ (const Twelve&) const;
+    Twelve operator- (const Twelve&) const;
 
     ~Twelve() noexcept;
 

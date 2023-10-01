@@ -22,13 +22,8 @@ int main() {
         cout << "(B + C) -= C: " << B << endl;
         B -= C;
         cout << "B -= C: " << B << endl;
-
-
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
     }
-
-
-
 }

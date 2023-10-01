@@ -9,7 +9,7 @@ void twelve_check(const unsigned char digit) {
 }
 
 void empty_check(const Twelve& number) {
-    if (number.empty()) {
+    if (number.size == 0) {
         throw std::invalid_argument("Number is empty");
     }
 }
@@ -87,18 +87,6 @@ Twelve::Twelve(Twelve&& other) noexcept {
     other.value = nullptr;
 }
 
-std::string Twelve::get_value() const noexcept {
-    std::string value{""};
-    for (size_t i{size}; i > 0; --i) {
-        value += this->value[i - 1];
-    }
-    return value;
-}
-
-bool Twelve::empty() const noexcept {
-    return size == 0;
-}
-
 bool Twelve::operator==(const Twelve& other) const noexcept {
     if (size != other.size) {
         return false;
@@ -112,7 +100,6 @@ bool Twelve::operator==(const Twelve& other) const noexcept {
 bool Twelve::operator!=(const Twelve& other) const noexcept {
     return !(*this == other);
 }
-
 
 bool Twelve::operator>(const Twelve& other) const noexcept {
     if (size > other.size) return true;
@@ -142,61 +129,28 @@ bool Twelve::operator>=(const Twelve& other) const noexcept {
     return !(*this < other);
 }
 
-Twelve Twelve::operator+(const Twelve& other) const {
-    const Twelve& max = (size >= other.size) ? *this : other;
-    const size_t& min_size = (size <= other.size) ? size : other.size;
-
-    Twelve res(max.size);
-    res.size = max.size;
-
-    int digit_sum{0};
-    for (size_t i{0}; i < max.size; ++i) {
-        if (i < min_size) {
-            digit_sum += twelve_to_dec(value[i]) + twelve_to_dec(other.value[i]);
-        } else {
-            digit_sum += twelve_to_dec(max.value[i]);
-        }
-        res.value[i] = dec_to_twelve(digit_sum % 12);
-        digit_sum /= 12;
+Twelve& Twelve::operator=(const Twelve& other) {
+    if (*this == other) return *this;
+    size = other.size;
+    if (capacity < other.size) {
+        capacity = other.size + RESERVE;
+        delete[] value;
+        value = new unsigned char[capacity];
     }
-    if (digit_sum) {
-        res.value[res.size++] = dec_to_twelve(digit_sum);
+    for (size_t i{0}; i < size; ++i) {
+        value[i] = other.value[i];
     }
-    return res;
+    return *this;
 }
 
-Twelve Twelve::operator-(const Twelve& other) const {
-    if (*this < other) {
-        throw std::invalid_argument("Left argument less then right");
-    }
-
-    Twelve res(size);
-    res.size = size;
-
-    int digit_res{0};
-    int val;
-    for (size_t i{0}; i < size; ++i) {
-        if (i < other.size) {
-            digit_res += twelve_to_dec(other.value[i]);
-        }
-        val = twelve_to_dec(value[i]);
-        if (val >= digit_res) {
-            res.value[i] = dec_to_twelve(val - digit_res);
-            digit_res = 0;
-        } else {
-            res.value[i] = dec_to_twelve(12 + val - digit_res);
-            digit_res = 1;
-        }
-    }
-
-    for (size_t i{size}; i > 1; --i) {
-        if (res.value[i - 1] == '0') {
-            --res.size;
-        } else {
-            break;
-        }
-    }
-    return res;
+Twelve& Twelve::operator=(Twelve&& other) noexcept {
+    size = other.size;
+    capacity = other.capacity;
+    value = other.value;
+    other.size = 0;
+    other.capacity = 0;
+    other.value = nullptr;
+    return *this;
 }
 
 Twelve& Twelve::operator+= (const Twelve& other) {
@@ -264,28 +218,22 @@ Twelve& Twelve::operator-= (const Twelve& other) {
     return *this;
 }
 
-Twelve& Twelve::operator=(const Twelve& other) {
-    if (*this == other) return *this;
-    size = other.size;
-    if (capacity < other.size) {
-        capacity = other.size + RESERVE;
-        delete[] value;
-        value = new unsigned char[capacity];
+Twelve Twelve::operator+(const Twelve& other) const {
+    if (size >= other.size) {
+        Twelve res(*this);
+        res += other;
+        return res;
+    } else {
+        Twelve res(other);
+        res += *this;
+        return res;
     }
-    for (size_t i{0}; i < size; ++i) {
-        value[i] = other.value[i];
-    }
-    return *this;
 }
 
-Twelve& Twelve::operator=(Twelve&& other) noexcept {
-    size = other.size;
-    capacity = other.capacity;
-    value = other.value;
-    other.size = 0;
-    other.capacity = 0;
-    other.value = nullptr;
-    return *this;
+Twelve Twelve::operator-(const Twelve& other) const {
+    Twelve res(*this);
+    res -= other;
+    return res;
 }
 
 Twelve::~Twelve() noexcept {
@@ -295,6 +243,14 @@ Twelve::~Twelve() noexcept {
         delete[] value;
         value = nullptr;
     }
+}
+
+std::string Twelve::get_value() const noexcept {
+    std::string value{""};
+    for (size_t i{size}; i > 0; --i) {
+        value += this->value[i - 1];
+    }
+    return value;
 }
 
 std::ostream& operator<<(std::ostream& os, const Twelve& number) {
