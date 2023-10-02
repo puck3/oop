@@ -23,7 +23,7 @@ int main() {
         B -= C;
         cout << "B -= C: " << B << endl;
     }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << '\n';
+    catch (const exception& e) {
+        cerr << e.what() << endl;
     }
 }

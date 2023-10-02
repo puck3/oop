@@ -14,7 +14,8 @@ public:
     Twelve(const Twelve&);
     Twelve(Twelve&&) noexcept;
 
-    std::string get_value() const noexcept;
+    size_t get_size() const noexcept;
+    std::string get_value() const;
 
     bool operator== (const Twelve&) const noexcept;
     bool operator!= (const Twelve&) const noexcept;
@@ -41,3 +42,8 @@ private:
 };
 
 std::ostream& operator<<(std::ostream&, const Twelve&);
+
+void twelve_check(const unsigned char digit, unsigned char*);
+void empty_check(const Twelve& number);
+int twelve_to_dec(const unsigned char digit) noexcept;
+unsigned char dec_to_twelve(const int& digit) noexcept;

@@ -2,15 +2,19 @@
 const int RESERVE = 4;
 
 
-void twelve_check(const unsigned char digit) {
+void twelve_check(const unsigned char digit, unsigned char* number = nullptr) {
     if (!isdigit(digit) && toupper(digit) != 'A' && toupper(digit) != 'B') {
+        if (number) {
+            delete[] number;
+            number = nullptr;
+        }
         throw std::invalid_argument("Number value must be duodecimal");
     }
 }
 
 void empty_check(const Twelve& number) {
-    if (number.size == 0) {
-        throw std::invalid_argument("Number is empty");
+    if (number.value == nullptr) {
+        throw std::domain_error("Number is empty");
     }
 }
 
@@ -27,36 +31,47 @@ unsigned char dec_to_twelve(const int& digit) noexcept {
 }
 
 Twelve::Twelve() {
-    size = 1;
-    capacity = RESERVE;
-    value = new unsigned char[capacity] {'0'};
+    size = 0;
+    capacity = 0;
+    value = nullptr;
 }
 
 Twelve::Twelve(const size_t& size, const unsigned char digit) {
     twelve_check(digit);
-    this->size = (digit != '0') ? size : 1;
-    capacity = size + RESERVE;
-    value = new unsigned char[capacity];
-    for (size_t i{0}; i < this->size; ++i) {
-        value[i] = digit;
+    if (size == 0) {
+        this->size = 0;
+        capacity = 0;
+        value = nullptr;
+    } else {
+        this->size = (digit != '0') ? size : 1;
+        capacity = size + RESERVE;
+        value = new unsigned char[capacity];
+        for (size_t i{0}; i < this->size; ++i) {
+            value[i] = toupper(digit);
+        }
     }
 }
 
 Twelve::Twelve(const std::string& number) {
     size = number.size();
-    capacity = size + RESERVE;
-    value = new unsigned char[capacity];
-    bool null_flag = (size != 1);
-    size_t i{size};
-    for (unsigned char digit : number) {
-        twelve_check(digit);
-        if (null_flag && digit == '0') {
-            --size;
-            --i;
-            continue;
+    if (size == 0) {
+        capacity = 0;
+        value = nullptr;
+    } else {
+        capacity = size + RESERVE;
+        value = new unsigned char[capacity];
+        bool null_flag = (size != 1);
+        size_t i{size};
+        for (unsigned char digit : number) {
+            twelve_check(digit, value);
+            if (null_flag && digit == '0' && size != 1) {
+                --size;
+                --i;
+                continue;
+            }
+            null_flag = false;
+            value[--i] = toupper(digit);
         }
-        null_flag = false;
-        value[--i] = digit;
     }
 }
 
@@ -64,7 +79,7 @@ Twelve::Twelve(const std::initializer_list<unsigned char>& list) : Twelve(std::s
 
 Twelve::Twelve(const Twelve& other) {
     size = other.size;
-    capacity = size + RESERVE;
+    capacity = other.capacity;
     value = new unsigned char[capacity];
     for (size_t i{0}; i < size; ++i) {
         value[i] = other.value[i];
@@ -140,7 +155,9 @@ Twelve& Twelve::operator=(const Twelve& other) {
 Twelve& Twelve::operator=(Twelve&& other) noexcept {
     size = other.size;
     capacity = other.capacity;
+    delete[] value;
     value = other.value;
+
     other.size = 0;
     other.capacity = 0;
     other.value = nullptr;
@@ -187,7 +204,7 @@ Twelve& Twelve::operator-= (const Twelve& other) {
     empty_check(*this);
     empty_check(other);
     if (*this < other) {
-        throw std::invalid_argument("Left argument less then right");
+        throw std::underflow_error("Left argument less then right");
     }
 
     int digit_res{0};
@@ -217,15 +234,15 @@ Twelve& Twelve::operator-= (const Twelve& other) {
 }
 
 Twelve Twelve::operator+(const Twelve& other) const {
+    Twelve res;
     if (size >= other.size) {
-        Twelve res(*this);
+        res = *this;
         res += other;
-        return res;
     } else {
-        Twelve res(other);
+        res = other;
         res += *this;
-        return res;
     }
+    return res;
 }
 
 Twelve Twelve::operator-(const Twelve& other) const {
@@ -235,7 +252,7 @@ Twelve Twelve::operator-(const Twelve& other) const {
 }
 
 Twelve::~Twelve() noexcept {
-    if (size > 0) {
+    if (value != nullptr) {
         capacity = 0;
         size = 0;
         delete[] value;
@@ -243,7 +260,8 @@ Twelve::~Twelve() noexcept {
     }
 }
 
-std::string Twelve::get_value() const noexcept {
+std::string Twelve::get_value() const {
+    empty_check(*this);
     std::string value{""};
     for (size_t i{size}; i > 0; --i) {
         value += this->value[i - 1];
@@ -251,7 +269,10 @@ std::string Twelve::get_value() const noexcept {
     return value;
 }
 
+size_t Twelve::get_size() const noexcept {
+    return size;
+}
+
 std::ostream& operator<<(std::ostream& os, const Twelve& number) {
-    empty_check(number);
     return os << number.get_value();
 }
