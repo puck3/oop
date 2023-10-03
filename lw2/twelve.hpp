@@ -33,7 +33,7 @@ public:
     Twelve operator+ (const Twelve&) const;
     Twelve operator- (const Twelve&) const;
 
-    ~Twelve() noexcept;
+    virtual ~Twelve() noexcept;
 
 private:
     size_t size;
