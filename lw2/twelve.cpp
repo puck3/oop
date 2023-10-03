@@ -139,7 +139,7 @@ bool Twelve::operator>=(const Twelve& other) const noexcept {
 }
 
 Twelve& Twelve::operator=(const Twelve& other) {
-    if (*this == other) return *this;
+    if (this == &other) return *this;
     size = other.size;
     if (capacity < other.size) {
         capacity = other.size + RESERVE;
