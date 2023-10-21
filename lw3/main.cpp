@@ -36,4 +36,7 @@ int main() {
     arr3 = move(arr2);
     cout << endl;
     cout << arr3;
+    cout << e;
+    cin >> e;
+    cout << e;
 }
