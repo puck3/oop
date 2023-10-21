@@ -1,15 +1,14 @@
 #pragma once
-
 #include "point.hpp"
 
 class Figure {
 protected:
-    int points_qty;
-    Point* points;
+    virtual void throw_if_invalid() const = 0;
+
 public:
-    Figure();
-    virtual ~Figure() noexcept;
+    virtual ~Figure() noexcept = default;
     virtual double area() const noexcept = 0;
-    virtual double perimeter() const noexcept = 0;
     virtual Point center() const noexcept = 0;
+    virtual void print(std::ostream&) const noexcept = 0;
+    explicit virtual operator double() const noexcept = 0;
 };
