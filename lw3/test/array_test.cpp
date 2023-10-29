@@ -27,22 +27,6 @@ protected:
         arr = FiguresArray();
     }
 
-    void TearDown() override {
-        p0.~Point();
-        p1.~Point();
-        p2.~Point();
-        p3.~Point();
-        p4.~Point();
-        p5.~Point();
-        p6.~Point();
-        p7.~Point();
-        p8.~Point();
-        p9.~Point();
-        p10.~Point();
-        triangle.~Triangle();
-        arr.~FiguresArray();
-    }
-
     FiguresArray arr;
     Point p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
     Triangle triangle;

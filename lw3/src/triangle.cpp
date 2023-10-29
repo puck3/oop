@@ -21,7 +21,7 @@ Triangle::Triangle(const Triangle& other) noexcept {
     *this = other;
 }
 
-Triangle::Triangle(const Triangle&& other) noexcept {
+Triangle::Triangle(Triangle&& other) noexcept {
     *this = other;
 }
 
@@ -47,7 +47,7 @@ Triangle& Triangle::operator= (const Triangle& other) noexcept {
     return *this;
 }
 
-Triangle& Triangle::operator= (const Triangle&& other) noexcept {
+Triangle& Triangle::operator= (Triangle&& other) noexcept {
     p1 = other.p1;
     p2 = other.p2;
     p3 = other.p3;

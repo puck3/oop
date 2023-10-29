@@ -12,7 +12,7 @@ public:
     Triangle() noexcept = default;
     Triangle(Point&, Point&, Point&);
     Triangle(const Triangle&) noexcept;
-    Triangle(const Triangle&&) noexcept;
+    Triangle(Triangle&&) noexcept;
     ~Triangle() noexcept = default;
 
     virtual double area() const noexcept override;
@@ -22,7 +22,7 @@ public:
     explicit virtual operator double() const noexcept override;
 
     Triangle& operator= (const Triangle&) noexcept;
-    Triangle& operator= (const Triangle&&) noexcept;
+    Triangle& operator= (Triangle&&) noexcept;
     bool operator == (const Triangle&) const noexcept;
     bool operator != (const Triangle&) const noexcept;
 

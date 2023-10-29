@@ -13,7 +13,7 @@ public:
     Octagon() noexcept = default;
     Octagon(Point&, Point&, Point&, Point&, Point&, Point&, Point&, Point&);
     Octagon(const Octagon&) noexcept;
-    Octagon(const Octagon&&) noexcept;
+    Octagon(Octagon&&) noexcept;
     ~Octagon() noexcept = default;
 
     virtual double area() const noexcept override;
@@ -22,7 +22,7 @@ public:
     explicit virtual operator double() const noexcept override;
 
     Octagon& operator= (const Octagon&) noexcept;
-    Octagon& operator= (const Octagon&&) noexcept;
+    Octagon& operator= (Octagon&&) noexcept;
     bool operator == (const Octagon&) const noexcept;
     bool operator != (const Octagon&) const noexcept;
 

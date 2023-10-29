@@ -12,7 +12,7 @@ public:
     FiguresArray(size_t);
     FiguresArray(const FiguresArray&);
     FiguresArray(FiguresArray&&) noexcept;
-    ~FiguresArray() noexcept;
+    virtual ~FiguresArray() noexcept;
 
     FiguresArray& operator=(const FiguresArray&);
     FiguresArray& operator=(FiguresArray&&) noexcept;

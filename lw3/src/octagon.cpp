@@ -35,7 +35,7 @@ Octagon::Octagon(const Octagon& other) noexcept {
     *this = other;
 }
 
-Octagon::Octagon(const Octagon&& other) noexcept {
+Octagon::Octagon(Octagon&& other) noexcept {
     *this = other;
 }
 
@@ -72,7 +72,7 @@ Octagon& Octagon::operator= (const Octagon& other) noexcept {
     return *this;
 }
 
-Octagon& Octagon::operator= (const Octagon&& other) noexcept {
+Octagon& Octagon::operator= (Octagon&& other) noexcept {
     for (size_t i{0}; i < size; ++i) {
         points[i] = other.points[i];
     }

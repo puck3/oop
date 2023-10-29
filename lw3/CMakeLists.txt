@@ -21,11 +21,3 @@ add_executable(${PROJECT_NAME}_test ${TEST_SOURCES})
 
 target_link_libraries(${PROJECT_NAME}_exe PRIVATE ${PROJECT_NAME}_lib)
 target_link_libraries(${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME}_lib ${GTEST_LIBRARIES})
-
-
-
-
-
-
-
-

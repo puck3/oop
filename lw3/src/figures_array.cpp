@@ -80,17 +80,14 @@ size_t FiguresArray::length() {
 
 
 void FiguresArray::push_back(Figure* figure) {
-    if (!data) {
-        capacity = 4;
-        data = new Figure * [capacity];
-    } else if (capacity <= size) {
-        Figure** tmp = data;
-        capacity = size * 2;
-        data = new Figure * [capacity];
+    if (capacity <= size) {
+        capacity = (size + 1) * 2;
+        Figure** tmp = new Figure * [capacity];
         for (size_t i{0}; i < size; ++i) {
-            data[i] = tmp[i];
+            tmp[i] = data[i];
         }
-        delete[] tmp;
+        delete[] data;
+        data = tmp;
         tmp = nullptr;
     }
     data[size++] = figure;

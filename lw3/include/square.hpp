@@ -13,7 +13,7 @@ public:
     Square() noexcept = default;
     Square(Point&, Point&, Point&, Point&);
     Square(const Square&) noexcept;
-    Square(const Square&&) noexcept;
+    Square(Square&&) noexcept;
     ~Square() noexcept = default;
 
     virtual double area() const noexcept override;
@@ -22,7 +22,7 @@ public:
     explicit virtual operator double() const noexcept override;
 
     Square& operator= (const Square&) noexcept;
-    Square& operator= (const Square&&) noexcept;
+    Square& operator= (Square&&) noexcept;
     bool operator == (const Square&) const noexcept;
     bool operator != (const Square&) const noexcept;
 

@@ -33,7 +33,7 @@ Square::Square(const Square& other) noexcept {
     *this = other;
 }
 
-Square::Square(const Square&& other) noexcept {
+Square::Square(Square&& other) noexcept {
     *this = other;
 }
 
@@ -65,7 +65,7 @@ Square& Square::operator= (const Square& other) noexcept {
     return *this;
 }
 
-Square& Square::operator= (const Square&& other) noexcept {
+Square& Square::operator= (Square&& other) noexcept {
     for (size_t i{0}; i < size; ++i) {
         points[i] = other.points[i];
     }
