@@ -20,9 +20,7 @@ protected:
             }
         }
         if (fabs(seg_length(points[0], points[2]) * seg_length(points[0], points[2]) - 2 * side * side) > EPS) {
-            if (points[0] == points[2] || points[1] == points[3]) {
-                throw std::invalid_argument("Figure is not square");
-            }
+            throw std::invalid_argument("Figure is not square");
         }
     }
 

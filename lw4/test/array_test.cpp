@@ -10,28 +10,28 @@ class ArrayTest : public testing::Test {
 
 protected:
     void SetUp() override {
-        p0 = Point();
-        p1 = Point(0, 4);
-        p2 = Point(3, 0);
-        p3 = Point(3, -4);
-        p4 = Point(0, -6);
-        p5 = Point(-4, -6);
-        p6 = Point(-6, -3);
-        p7 = Point(-6, 2);
-        p8 = Point(-3, 4);
-        p9 = Point(4, 4);
-        p10 = Point(4, 0);
-        triangle = Triangle(p0, p1, p2);
-        square = Square(p0, p1, p9, p10);
-        octagon = Octagon(p1, p2, p3, p4, p5, p6, p7, p8);
+        p0 = Point<double>();
+        p1 = Point<double>(0, 4);
+        p2 = Point<double>(3, 0);
+        p3 = Point<double>(3, -4);
+        p4 = Point<double>(0, -6);
+        p5 = Point<double>(-4, -6);
+        p6 = Point<double>(-6, -3);
+        p7 = Point<double>(-6, 2);
+        p8 = Point<double>(-3, 4);
+        p9 = Point<double>(4, 4);
+        p10 = Point<double>(4, 0);
+        triangle = Triangle<double>(p0, p1, p2);
+        square = Square<double>(p0, p1, p9, p10);
+        octagon = Octagon<double>(p1, p2, p3, p4, p5, p6, p7, p8);
         arr = FiguresArray();
     }
 
     FiguresArray arr;
-    Point p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
-    Triangle triangle;
-    Square square;
-    Octagon octagon;
+    Point<double> p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
+    Triangle<double> triangle;
+    Square<double> square;
+    Octagon<double> octagon;
 };
 
 TEST_F(ArrayTest, PushBackTest) {

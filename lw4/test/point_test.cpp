@@ -5,22 +5,14 @@ class PointTest : public testing::Test {
 
 protected:
     void SetUp() override {
-        p0 = Point();
-        p1 = Point(1, 2);
-        p2 = Point(2, 3);
-        p3 = Point(2, 2);
-        p4 = Point(3, 4);
+        p0 = Point<double>();
+        p1 = Point<double>(1, 2);
+        p2 = Point<double>(2, 3);
+        p3 = Point<double>(2, 2);
+        p4 = Point<double>(3, 4);
     }
 
-    void TearDown() override {
-        p0.~Point();
-        p1.~Point();
-        p2.~Point();
-        p3.~Point();
-        p4.~Point();
-    }
-
-    Point p0, p1, p2, p3, p4;
+    Point<double> p0, p1, p2, p3, p4;
 
 };
 
@@ -38,7 +30,7 @@ TEST_F(PointTest, GetSetTest) {
 }
 
 TEST_F(PointTest, EqTest) {
-    Point p = p1;
+    Point<double> p = p1;
     ASSERT_EQ(p, p1);
     ASSERT_NE(p, p2);
 }
