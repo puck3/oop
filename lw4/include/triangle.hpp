@@ -17,7 +17,7 @@ protected:
 public:
     Triangle() noexcept = default;
 
-    Triangle(Point<T>& _p1, Point<T>& _p2, Point<T>& _p3) : p1(_p1), p2(_p2), p3(_p3) {
+    Triangle(Point<T>& _p1, Point<T>& _p2, Point<T>& _p3) : p1{_p1}, p2{_p2}, p3{_p3} {
         this->throw_if_invalid();
     }
 

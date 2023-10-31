@@ -5,7 +5,6 @@
 #include "square.hpp"
 #include "triangle.hpp"
 
-
 class ArrayTest : public testing::Test {
 protected:
     void SetUp() override {

@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <memory>
-#include "figure.hpp"
 
 template<class T>
 class Array {

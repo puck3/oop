@@ -4,8 +4,14 @@
 
 class TriangleTest : public testing::Test {
 protected:
+    void SetUp() override {
+        figure1 = Triangle<double>(p0, p1, p2);
+        figure2 = Triangle<double>(p3, p4, p5);
+        figure3 = Triangle<double>(p0, p1, p4);
+    }
+
     Point<double> p0, p1{0, 4}, p2{3, 0}, p3{4, 2}, p4{6, 5}, p5{8, 2}, p6{0, 1};
-    Triangle<double> figure1{p0, p1, p2}, figure2{p3, p4, p5}, figure3{p0, p1, p4};
+    Triangle<double> figure1, figure2, figure3;
 };
 
 TEST_F(TriangleTest, ThrowTest) {

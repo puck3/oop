@@ -4,8 +4,13 @@
 
 class SquareTest : public testing::Test {
 protected:
+    void SetUp() override {
+        figure1 = Square<double>(p1, p2, p3, p4);
+        figure2 = Square<double>(p0, p5, p6, p7);
+    }
+
     Point<double> p0, p1{-3, -3}, p2{-3, 4}, p3{4, 4}, p4{4, -3}, p5{2, 1}, p6{3, -1}, p7{1, -2}, p8{2, 0}, p9{1,2};
-    Square<double> figure1{p1, p2, p3, p4}, figure2{p0, p5, p6, p7};
+    Square<double> figure1, figure2;
 };
 
 TEST_F(SquareTest, ThrowTest) {
