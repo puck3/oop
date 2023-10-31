@@ -4,7 +4,7 @@
 #include "octagon.hpp"
 #include "square.hpp"
 #include "triangle.hpp"
-#include "figures_array.hpp"
+#include "array.hpp"
 
 using namespace std;
 

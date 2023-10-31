@@ -1,5 +1,5 @@
 #include<gtest/gtest.h>
-#include "figures_array.hpp"
+#include "array.hpp"
 #include "point.hpp"
 #include "octagon.hpp"
 #include "square.hpp"
