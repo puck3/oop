@@ -12,7 +12,7 @@ private:
 public:
     Point() noexcept : x{0}, y{0} {}
     Point(const T& _x, const T& _y) noexcept : x{_x}, y{_y} {}
-    ~Point() = default;
+    virtual ~Point() = default;
 
     T get_x() const noexcept {
         return x;
