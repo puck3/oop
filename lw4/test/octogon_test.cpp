@@ -3,15 +3,9 @@
 #include "point.hpp"
 
 class OctagonTest : public testing::Test {
-
 protected:
-    void SetUp() override {
-        figure1 = Octagon<double>(p1, p2, p3, p4, p5, p6, p7, p8);
-        figure2 = Octagon<double>(p1, p2, p3, p4, p5, p6, p9, p10);
-    }
-
     Point<double> p0, p1{-4, -2}, p2{-4, 2}, p3{-2, 4}, p4{2, 4}, p5{4, 2}, p6{4, -2}, p7{2, -4}, p8{-2, -4}, p9{2, -5}, p10{-3, -6};
-    Octagon<double> figure1, figure2;
+    Octagon<double> figure1{p1, p2, p3, p4, p5, p6, p7, p8}, figure2{p1, p2, p3, p4, p5, p6, p9, p10};
 };
 
 TEST_F(OctagonTest, ThrowTest) {

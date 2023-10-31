@@ -2,7 +2,6 @@
 #include "point.hpp"
 
 class PointTest : public testing::Test {
-
 protected:
     void SetUp() override {
         p0 = Point<double>();
