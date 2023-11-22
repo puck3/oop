@@ -72,8 +72,17 @@ private:
     }
 
     void delete_node(Node<T>*& node) {
-        node->_prev->_next = node->_next;
-        node->_next->_prev = node->_prev;
+        if (!node) return;
+        if (node->_prev) {
+            node->_prev->_next = node->_next;
+        } else {
+            _head = node->_next;
+        }
+        if (node->_next) {
+            node->_next->_prev = node->_prev;
+        } else {
+            _tail = node->_prev;
+        }
         _alloc.destroy(node);
         _alloc.deallocate(node, 1);
     }
@@ -110,7 +119,7 @@ public:
         }
 
         const_iterator& operator++() {
-            _node = _node->_next;
+            _node = _node ? _node->_next : _node;
             return *this;
         }
 
@@ -121,7 +130,7 @@ public:
         }
 
         const_iterator& operator--() {
-            _node = _node->_prev;
+            _node = _node ? _node->_prev : _node;
             return *this;
         }
 
@@ -161,7 +170,7 @@ public:
         }
 
         iterator& operator++() {
-            _node = _node->_next;
+            _node = _node ? _node->_next : _node;
             return *this;
         }
 
@@ -172,7 +181,7 @@ public:
         }
 
         iterator& operator--() {
-            _node = _node->_prev;
+            _node = _node ? _node->_prev : _node;
             return *this;
         }
 
@@ -183,7 +192,9 @@ public:
         }
 
         bool operator==(const iterator other) {
-            return &_node == &other._node;
+            if (_node && other._node) return &_node == &other._node;
+            else if (!_node && !other._node) return true;
+            else return false;
         }
         bool operator!=(const iterator other) {
             return !(*this == other);
@@ -225,10 +236,10 @@ public:
 
     List(const List<T, allocator_type>& other, const allocator_type& alloc = allocator_type()) : List(other.begin(), other.end(), alloc) {}
 
-    List(List<T, allocator_type>&& other) noexcept : _head(other->_head), _tail(other._tail), _size(other->_size), _alloc(other->_alloc) {
-        other->_head = nullptr;void pop_front()
-            other->_tail = nullptr;
-        other->_size = 0;
+    List(List<T, allocator_type>&& other) noexcept : _head(other._head), _tail(other._tail), _size(other._size), _alloc(other._alloc) {
+        other._head = nullptr;
+        other._tail = nullptr;
+        other._size = 0;
     }
 
     List(std::initializer_list<T> init, const allocator_type& alloc = allocator_type()) : List(init.begin(), init.end(), alloc) {}
@@ -376,7 +387,7 @@ public:
 
     iterator insert(iterator pos, const T& value) {
         ++_size;
-        Node<T>* node = pos._node->_prev;
+        Node<T>* node = pos._node ? pos._node->_prev : nullptr;
         add_prev(pos._node, value);
         return iterator(node ? node->_next : _head);
     }
@@ -405,15 +416,16 @@ public:
     }
 
     iterator erase(iterator pos) {
-        Node<T>* node = pos._node->_prev;
+        Node<T>* node = pos._node ? pos._node->_prev : pos._node;
         delete_node(pos._node);
-        return iterator(node->_next);
+        if (node) node = node->_next;
+        return iterator(node);
     }
 
     iterator erase(iterator first, iterator last) {
         Node<T>* node = nullptr;
         for (auto it{first}; it != last; ++it) {
-            if (!node) node = *it;
+            if (it) node = it->_node->_next;
             delete_node(node->_next);
         }
         return iterator(node->_next);
@@ -424,7 +436,7 @@ public:
     }
 
     void pop_back() {
-        erase(end());
+        erase(iterator(_tail));
     }
 
     void push_front(const T& value) {
