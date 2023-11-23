@@ -114,11 +114,17 @@ public:
         const_iterator(const Node<T>* ptr) : _node(ptr) {}
 
         reference operator*() const {
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
             return _node->_data;
         }
 
         const_iterator& operator++() {
-            _node = _node ? _node->_next : _node;
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
+            _node = _node->_next;
             return *this;
         }
 
@@ -129,7 +135,10 @@ public:
         }
 
         const_iterator& operator--() {
-            _node = _node ? _node->_prev : _node;
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
+            _node = _node->_prev;
             return *this;
         }
 
@@ -169,11 +178,17 @@ public:
         iterator(Node<T>* ptr) : _node(ptr) {}
 
         reference operator*() {
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
             return _node->_data;
         }
 
         iterator& operator++() {
-            _node = _node ? _node->_next : _node;
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
+            _node = _node->_next;
             return *this;
         }
 
@@ -184,7 +199,10 @@ public:
         }
 
         iterator& operator--() {
-            _node = _node ? _node->_prev : _node;
+            if (!_node) {
+                throw std::runtime_error("Iterator error");
+            }
+            _node = _node->_prev;
             return *this;
         }
 
