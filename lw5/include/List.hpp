@@ -230,9 +230,7 @@ public:
 
     List() : _head(nullptr), _tail(nullptr), _size(0), _alloc(allocator_type()) {}
 
-    explicit List(const allocator_type& alloc) : _head(nullptr), _tail(nullptr), _size(0), _alloc(alloc) {}
-
-    explicit List(size_type count, const T& value, const allocator_type& alloc = allocator_type()) : _head{nullptr}, _tail(nullptr), _size(count), _alloc(alloc) {
+    explicit List(size_type count, const T& value) : _head{nullptr}, _tail(nullptr), _size(count), _alloc(allocator_type()) {
         for (size_type i{0}; i < _size; ++i) {
             if (!_head) {
                 set_head(value);
@@ -243,10 +241,10 @@ public:
         }
     }
 
-    explicit List(size_type count, const allocator_type& alloc = allocator_type()) : List(count, T(), alloc) {}
+    explicit List(size_type count) : List(count, T()) {}
 
     template<Iter InputIt>
-    List(InputIt first, InputIt last, const allocator_type& alloc = allocator_type()) : _head(nullptr), _tail(nullptr), _size(std::distance(first, last)), _alloc(alloc) {
+    List(InputIt first, InputIt last) : _head(nullptr), _tail(nullptr), _size(std::distance(first, last)), _alloc(allocator_type()) {
         for (auto it{first}; it != last; ++it) {
             if (!_head) {
                 set_head(*it);
@@ -257,15 +255,15 @@ public:
         }
     }
 
-    List(const List<T, allocator_type>& other, const allocator_type& alloc = allocator_type()) : List(other.begin(), other.end(), alloc) {}
+    List(const List<T, allocator_type>& other, const allocator_type& alloc = allocator_type()) : List(other.begin(), other.end()) {}
 
-    List(List<T, allocator_type>&& other) noexcept : _head(other._head), _tail(other._tail), _size(other._size), _alloc(other._alloc) {
+    List(List<T, allocator_type>&& other) noexcept : _head(other._head), _tail(other._tail), _size(other._size), _alloc(allocator_type()) {
         other._head = nullptr;
         other._tail = nullptr;
         other._size = 0;
     }
 
-    List(std::initializer_list<T> init, const allocator_type& alloc = allocator_type()) : List(init.begin(), init.end(), alloc) {}
+    List(std::initializer_list<T> init) : List(init.begin(), init.end()) {}
 
     virtual ~List() {
         delete_from(_head);
@@ -441,14 +439,6 @@ public:
         delete_node(pos._node);
         if (node) node = node->_next;
         return iterator(node);
-    }
-
-    iterator erase(iterator first, iterator last) {
-        iterator res;
-        for (auto it{first}; it != last; ++it) {
-            res = erase(it);
-        }
-        return res;
     }
 
     void push_back(const T& value) {

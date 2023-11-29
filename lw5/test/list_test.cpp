@@ -197,13 +197,6 @@ TEST(TestList, TestErase) {
     ASSERT_EQ(list, List<int>({2, 4, 5, 6, 7, 8, 9}));
 }
 
-TEST(TestList, TestEraseTwoIterators) {
-    List<int> list = {1, 2, 3, 4, 5};
-    auto it = list.erase(++list.begin(), list.end());
-    ASSERT_EQ(list, List<int>({1}));
-    ASSERT_FALSE(it);
-}
-
 TEST(TestList, TestPushBack) {
     List<int> list = {1, 2, 3};
     list.push_back(10);

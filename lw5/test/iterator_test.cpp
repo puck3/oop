@@ -8,6 +8,7 @@ TEST(TestIterator, TestConstructor) {
     auto it = List<int>::iterator(node);
     ASSERT_EQ(*it, 5);
     ASSERT_FALSE(++it);
+    delete node;
 }
 
 TEST(TestIterator, TestOperatorAsterisk) {
@@ -66,6 +67,7 @@ TEST(TestConstIterator, TestConstructor) {
     auto it = List<int>::const_iterator(node);
     ASSERT_EQ(*it, 5);
     ASSERT_FALSE(++it);
+    delete node;
 }
 
 TEST(TestConstIterator, TestOperatorAsterisk) {
