@@ -1,0 +1,26 @@
+#include "elf.hpp"
+#include "bandit.hpp"
+#include "squirrel.hpp"
+
+Squirrel::Squirrel(int x, int y) : NPC(SquirrelType, x, y) {}
+Squirrel::Squirrel(std::istream& is) : NPC(SquirrelType, is) {}
+
+bool Squirrel::accept(const std::shared_ptr<Visitor>& attacker_visitor) const {
+    std::shared_ptr<Squirrel> defender = std::dynamic_pointer_cast<Squirrel>(std::const_pointer_cast<NPC>(shared_from_this()));
+    bool result = attacker_visitor->visit(defender);
+    return result;
+}
+
+void Squirrel::print() {
+    std::cout << *this;
+}
+
+void Squirrel::save(std::ostream& os) {
+    os << SquirrelType << std::endl;
+    NPC::save(os);
+}
+
+std::ostream& operator<<(std::ostream& os, Squirrel& squirrel) {
+    os << "squirrel: " << *static_cast<NPC*>(&squirrel) << std::endl;
+    return os;
+}
