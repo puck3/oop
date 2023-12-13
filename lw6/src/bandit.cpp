@@ -1,6 +1,6 @@
 #include "bandit.hpp"
 
-Bandit::Bandit(int x, int y) : NPC(BanditType, x, y) {}
+Bandit::Bandit(const std::string& name, int x, int y) : NPC(BanditType, name, x, y) {}
 Bandit::Bandit(std::istream& is) : NPC(BanditType, is) {}
 
 bool Bandit::accept(const std::shared_ptr<NPC>& attacker) const {
@@ -21,6 +21,6 @@ void Bandit::save(std::ostream& os) {
 }
 
 std::ostream& operator<<(std::ostream& os, Bandit& bandit) {
-    os << "bandit: " << *static_cast<NPC*>(&bandit) << std::endl;
+    os << "bandit " << *static_cast<NPC*>(&bandit) << std::endl;
     return os;
 }

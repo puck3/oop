@@ -4,13 +4,13 @@
 
 class Squirrel : public NPC {
 public:
-    Squirrel(int x, int y);
-    Squirrel(std::istream& is);
+    Squirrel(const std::string&, int, int);
+    Squirrel(std::istream&);
 
     virtual bool accept(const std::shared_ptr<NPC>&) const override;
 
     void print() override;
-    void save(std::ostream& os) override;
+    void save(std::ostream&) override;
 
-    friend std::ostream& operator<<(std::ostream& os, Squirrel& squirrel);
+    friend std::ostream& operator<<(std::ostream&, Squirrel&);
 };

@@ -1,6 +1,6 @@
 #include "squirrel.hpp"
 
-Squirrel::Squirrel(int x, int y) : NPC(SquirrelType, x, y) {}
+Squirrel::Squirrel(const std::string& name, int x, int y) : NPC(SquirrelType, name, x, y) {}
 Squirrel::Squirrel(std::istream& is) : NPC(SquirrelType, is) {}
 
 bool Squirrel::accept(const std::shared_ptr<NPC>& attacker) const {
@@ -21,6 +21,6 @@ void Squirrel::save(std::ostream& os) {
 }
 
 std::ostream& operator<<(std::ostream& os, Squirrel& squirrel) {
-    os << "squirrel: " << *static_cast<NPC*>(&squirrel) << std::endl;
+    os << "squirrel " << *static_cast<NPC*>(&squirrel) << std::endl;
     return os;
 }

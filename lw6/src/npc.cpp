@@ -1,7 +1,8 @@
 #include "npc.hpp"
 
-NPC::NPC(NpcType t, int _x, int _y) : type(t), x(_x), y(_y) {}
+NPC::NPC(NpcType t, const std::string& _name, int _x, int _y) : type(t), name(_name), x(_x), y(_y) {}
 NPC::NPC(NpcType t, std::istream& is) : type(t) {
+    is >> name;
     is >> x;
     is >> y;
 }
@@ -23,12 +24,13 @@ bool NPC::is_close(const std::shared_ptr<NPC>& other, size_t distance) const {
 }
 
 void NPC::save(std::ostream& os) {
+    os << name << std::endl;
     os << x << std::endl;
     os << y << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, NPC& npc) {
-    os << "{ x:" << npc.x << ", y:" << npc.y << "} ";
+    os << npc.name << " " << "{ x:" << npc.x << ", y:" << npc.y << "} ";
     return os;
 }
 

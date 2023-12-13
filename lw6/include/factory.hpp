@@ -7,19 +7,19 @@
 
 class Factory {
 public:
-    static std::shared_ptr<NPC> CreateNPC(const NpcType& type, int x, int y) {
+    static std::shared_ptr<NPC> CreateNPC(const NpcType& type, const std::string& name, int x, int y) {
         std::shared_ptr<NPC> result;
         switch (type) {
             case NpcType::ElfType:
-                result = static_pointer_cast<NPC>(std::make_shared<Elf>(x, y));
+                result = static_pointer_cast<NPC>(std::make_shared<Elf>(name, x, y));
                 break;
 
             case NpcType::BanditType:
-                result = static_pointer_cast<NPC>(std::make_shared<Bandit>(x, y));
+                result = static_pointer_cast<NPC>(std::make_shared<Bandit>(name, x, y));
                 break;
 
             case NpcType::SquirrelType:
-                result = static_pointer_cast<NPC>(std::make_shared<Squirrel>(x, y));
+                result = static_pointer_cast<NPC>(std::make_shared<Squirrel>(name, x, y));
                 break;
             default:
                 break;
@@ -31,6 +31,7 @@ public:
 
         return result;
     }
+
     static std::shared_ptr<NPC> CreateNPC(std::istream& is) {
         std::shared_ptr<NPC> result;
         int type{0};

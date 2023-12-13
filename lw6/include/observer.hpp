@@ -15,7 +15,9 @@ public:
         if (win) {
             std::cout << std::endl
                 << "Murder --------" << std::endl;
+            std::cout << "killer:";
             attacker->print();
+            std::cout << "victim:";
             defender->print();
         }
     }
@@ -37,7 +39,9 @@ public:
             std::ofstream fs("log.txt", std::ios::app);
             fs << std::endl
                 << "Murder --------" << std::endl;
+            fs << "killer:";
             attacker->save(fs);
+            fs << "victim:";
             defender->save(fs);
             fs.close();
         }

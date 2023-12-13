@@ -5,13 +5,13 @@
 class Bandit : public NPC {
 public:
 
-    Bandit(int x, int y);
-    Bandit(std::istream& is);
+    Bandit(const std::string&, int, int);
+    Bandit(std::istream&);
 
     virtual bool accept(const std::shared_ptr<NPC>&) const override;
 
     void print() override;
-    void save(std::ostream& os) override;
+    void save(std::ostream&) override;
 
-    friend std::ostream& operator<<(std::ostream& os, Bandit& bandit);
+    friend std::ostream& operator<<(std::ostream&, Bandit&);
 };

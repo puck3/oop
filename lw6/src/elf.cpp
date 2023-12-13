@@ -1,6 +1,6 @@
 #include "elf.hpp"
 
-Elf::Elf(int x, int y) : NPC(ElfType, x, y) {}
+Elf::Elf(const std::string& name, int x, int y) : NPC(ElfType, name, x, y) {}
 Elf::Elf(std::istream& is) : NPC(ElfType, is) {}
 
 bool Elf::accept(const std::shared_ptr<NPC>& attacker) const {
@@ -21,6 +21,6 @@ void Elf::save(std::ostream& os) {
 }
 
 std::ostream& operator<<(std::ostream& os, Elf& elf) {
-    os << "elf: " << *static_cast<NPC*>(&elf) << std::endl;
+    os << "elf " << *static_cast<NPC*>(&elf) << std::endl;
     return os;
 }

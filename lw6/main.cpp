@@ -47,10 +47,11 @@ std::ostream& operator<<(std::ostream& os, const set_t& array) {
 
 int main() {
     set_t array;
-
+    std::vector<std::string> names = {"Clarence", "Justin", "Travis", "Scott", "Natalie", "Valerie", "David", "Charles", "George", "Laura"};
     std::cout << "Generating ..." << std::endl;
     for (size_t i = 0; i < 10; ++i)
         array.insert(Factory::CreateNPC(NpcType(std::rand() % 3 + 1),
+            names[i],
             std::rand() % 100,
             std::rand() % 100));
     std::cout << "Saving ..." << std::endl;
@@ -74,7 +75,7 @@ int main() {
 
     }
 
-    std::cout << "Survivors:" << array;
+    std::cout << "Survivors: " << array;
 
     return 0;
 }
