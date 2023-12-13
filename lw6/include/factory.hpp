@@ -27,6 +27,7 @@ public:
 
         if (result) {
             result->subscribe(TextObserver::get());
+            result->subscribe(FileObserver::get());
         }
 
         return result;
@@ -57,6 +58,7 @@ public:
 
         if (result) {
             result->subscribe(TextObserver::get());
+            result->subscribe(FileObserver::get());
         }
 
         return result;

@@ -15,9 +15,9 @@ public:
         if (win) {
             std::cout << std::endl
                 << "Murder --------" << std::endl;
-            std::cout << "killer:";
+            std::cout << "killer: ";
             attacker->print();
-            std::cout << "victim:";
+            std::cout << "victim: ";
             defender->print();
         }
     }
@@ -37,12 +37,7 @@ public:
     void on_fight(const std::shared_ptr<NPC> attacker, const std::shared_ptr<NPC> defender, bool win) override {
         if (win) {
             std::ofstream fs("log.txt", std::ios::app);
-            fs << std::endl
-                << "Murder --------" << std::endl;
-            fs << "killer:";
-            attacker->save(fs);
-            fs << "victim:";
-            defender->save(fs);
+            fs << std::endl << "Murder --------" << std::endl << "killer: " << *attacker << std::endl << "victim: " << *defender;
             fs.close();
         }
     }

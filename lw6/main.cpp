@@ -72,6 +72,10 @@ int main() {
             << "distance: " << distance << std::endl
             << "killed: " << dead_list.size() << std::endl
             << std::endl << std::endl;
+        std::cout << "Fight stats ----------" << std::endl
+            << "distance: " << distance << std::endl
+            << "killed: " << dead_list.size() << std::endl
+            << std::endl << std::endl;
 
     }
 
