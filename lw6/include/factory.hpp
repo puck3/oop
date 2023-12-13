@@ -1,5 +1,8 @@
 #pragma once
 #include "npc.hpp"
+#include "elf.hpp"
+#include "bandit.hpp"
+#include "squirrel.hpp"
 #include "observer.hpp"
 
 class Factory {
@@ -58,5 +61,7 @@ public:
         return result;
     }
 };
+
+
 
 

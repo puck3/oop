@@ -8,7 +8,7 @@ public:
     Bandit(int x, int y);
     Bandit(std::istream& is);
 
-    virtual bool accept(const std::shared_ptr<Visitor>&) const override;
+    virtual bool accept(const std::shared_ptr<NPC>&) const override;
 
     void print() override;
     void save(std::ostream& os) override;

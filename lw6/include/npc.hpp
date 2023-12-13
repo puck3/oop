@@ -1,13 +1,13 @@
 #pragma once
-
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <cstring>
 #include <string>
 #include <random>
-#include <fstream>
 #include <set>
 #include <math.h>
+
 
 class NPC;
 class Elf;
@@ -40,7 +40,7 @@ public:
     NPC(NpcType, int, int);
     NPC(NpcType, std::istream&);
 
-    virtual bool accept(const std::shared_ptr<Visitor>&) const = 0;
+    virtual bool accept(const std::shared_ptr<NPC>&) const = 0;
 
     void subscribe(const std::shared_ptr<Observer>&);
     void fight_notify(const std::shared_ptr<NPC>, bool) const;

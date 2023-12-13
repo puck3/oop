@@ -4,7 +4,6 @@
 #include "bandit.hpp"
 #include "squirrel.hpp"
 
-// save array to file
 void save(const set_t& array, const std::string& filename) {
     std::ofstream fs(filename);
     fs << array.size() << std::endl;
@@ -28,7 +27,17 @@ set_t load(const std::string& filename) {
     return result;
 }
 
-// print to screen
+set_t fight(const set_t& array, size_t distance) {
+    set_t dead_list;
+    for (const auto& attacker : array)
+        for (const auto& defender : array)
+            if ((attacker != defender) && (attacker->is_close(defender, distance))) {
+                bool success = defender->accept(attacker);
+                if (success) dead_list.insert(defender);
+            }
+    return dead_list;
+}
+
 std::ostream& operator<<(std::ostream& os, const set_t& array) {
     for (auto& n : array)
         n->print();
@@ -36,35 +45,9 @@ std::ostream& operator<<(std::ostream& os, const set_t& array) {
 }
 
 
-// ВНИМАНИЕ: метод осуществляющий сражение написан неправильно!
-// Переделайте его на использование паттерна Visitor
-// То есть внутри цикла вместо кучи условий должно быть:
-//
-// success = defender->accept(attacker);
-//
-// В NPC методы типа is_dragon - станут не нужны
-
-set_t fight(const set_t& array, size_t distance) {
-    set_t dead_list;
-    std::vector<std::shared_ptr<Visitor>> visitors({std::make_shared<ElfVisitor>(), std::make_shared<BanditVisitor>(), std::make_shared<SquirrelVisitor>()});
-    for (const auto& attacker : array)
-        for (const auto& defender : array)
-            if ((attacker != defender) && (attacker->is_close(defender, distance))) {
-                if (attacker->type) {
-                    bool success = defender->accept(visitors[attacker->type - 1]);
-
-                    attacker->fight_notify(defender, success);
-                    if (success) dead_list.insert(defender);
-                }
-            }
-
-    return dead_list;
-}
-
 int main() {
-    set_t array; // монстры
+    set_t array;
 
-    // Гененрируем начальное распределение монстров
     std::cout << "Generating ..." << std::endl;
     for (size_t i = 0; i < 10; ++i)
         array.insert(Factory::CreateNPC(NpcType(std::rand() % 3 + 1),

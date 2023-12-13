@@ -7,7 +7,7 @@ public:
     Squirrel(int x, int y);
     Squirrel(std::istream& is);
 
-    virtual bool accept(const std::shared_ptr<Visitor>&) const override;
+    virtual bool accept(const std::shared_ptr<NPC>&) const override;
 
     void print() override;
     void save(std::ostream& os) override;
