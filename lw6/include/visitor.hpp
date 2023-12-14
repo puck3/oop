@@ -11,20 +11,20 @@ public:
     virtual bool visit(const std::shared_ptr<Squirrel>&) const = 0;
 };
 
-class ElfVisitor final : public Visitor {
+class ElfVisitor : public Visitor {
 public:
     virtual bool visit(const std::shared_ptr<Elf>&) const override { return false; }
     virtual bool visit(const std::shared_ptr<Bandit>&) const override { return true; }
     virtual bool visit(const std::shared_ptr<Squirrel>&) const override { return false; }
 };
 
-class BanditVisitor final : public Visitor {
+class BanditVisitor : public Visitor {
     virtual bool visit(const std::shared_ptr<Elf>&) const override { return false; }
     virtual bool visit(const std::shared_ptr<Bandit>&) const override { return false; }
     virtual bool visit(const std::shared_ptr<Squirrel>&) const override { return true; }
 };
 
-class SquirrelVisitor final : public Visitor {
+class SquirrelVisitor : public Visitor {
     virtual bool visit(const std::shared_ptr<Elf>&) const override { return true; }
     virtual bool visit(const std::shared_ptr<Bandit>&) const override { return false; }
     virtual bool visit(const std::shared_ptr<Squirrel>&) const override { return false; }
