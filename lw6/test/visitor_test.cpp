@@ -22,17 +22,15 @@ protected:
 };
 
 TEST_F(VisitorTest, VisitTest) {
-    // usage: attacker_visitor->visit(defender)
-    // elf > bandit > squirrel > elf ...
-    ASSERT_FALSE(elf_visitor->visit(static_pointer_cast<Elf>(elf)));
-    ASSERT_TRUE(elf_visitor->visit(static_pointer_cast<Bandit>(bandit)));
-    ASSERT_FALSE(elf_visitor->visit(static_pointer_cast<Squirrel>(squirrel)));
-    ASSERT_FALSE(bandit_visitor->visit(static_pointer_cast<Elf>(elf)));
-    ASSERT_FALSE(bandit_visitor->visit(static_pointer_cast<Bandit>(bandit)));
-    ASSERT_TRUE(bandit_visitor->visit(static_pointer_cast<Squirrel>(squirrel)));
-    ASSERT_TRUE(squirrel_visitor->visit(static_pointer_cast<Elf>(elf)));
-    ASSERT_FALSE(squirrel_visitor->visit(static_pointer_cast<Bandit>(bandit)));
-    ASSERT_FALSE(squirrel_visitor->visit(static_pointer_cast<Squirrel>(squirrel)));
+    ASSERT_FALSE(elf_visitor->visit(std::static_pointer_cast<Elf>(elf)));
+    ASSERT_TRUE(elf_visitor->visit(std::static_pointer_cast<Bandit>(bandit)));
+    ASSERT_FALSE(elf_visitor->visit(std::static_pointer_cast<Squirrel>(squirrel)));
+    ASSERT_FALSE(bandit_visitor->visit(std::static_pointer_cast<Elf>(elf)));
+    ASSERT_FALSE(bandit_visitor->visit(std::static_pointer_cast<Bandit>(bandit)));
+    ASSERT_TRUE(bandit_visitor->visit(std::static_pointer_cast<Squirrel>(squirrel)));
+    ASSERT_TRUE(squirrel_visitor->visit(std::static_pointer_cast<Elf>(elf)));
+    ASSERT_FALSE(squirrel_visitor->visit(std::static_pointer_cast<Bandit>(bandit)));
+    ASSERT_FALSE(squirrel_visitor->visit(std::static_pointer_cast<Squirrel>(squirrel)));
 }
 
 

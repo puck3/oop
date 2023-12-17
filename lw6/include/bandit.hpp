@@ -2,7 +2,7 @@
 #include "npc.hpp"
 #include "visitor.hpp"
 
-class Bandit : public NPC {
+class Bandit  final : public NPC {
 public:
 
     Bandit(const std::string&, int, int);

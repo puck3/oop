@@ -1,7 +1,8 @@
+#pragma once
 #include "npc.hpp"
 
 // Text Observer
-class TextObserver : public Observer {
+class TextObserver final : public Observer {
 private:
     TextObserver() {};
 
@@ -24,7 +25,7 @@ public:
 };
 
 
-class FileObserver : public Observer {
+class FileObserver final : public Observer {
 private:
     FileObserver() {};
 

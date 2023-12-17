@@ -2,7 +2,7 @@
 #include "npc.hpp"
 #include "visitor.hpp"
 
-class Elf : public NPC {
+class Elf final : public NPC {
 public:
     Elf(const std::string&, int, int);
     Elf(std::istream&);

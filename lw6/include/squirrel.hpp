@@ -2,7 +2,7 @@
 #include "npc.hpp"
 #include "visitor.hpp"
 
-class Squirrel : public NPC {
+class Squirrel final : public NPC {
 public:
     Squirrel(const std::string&, int, int);
     Squirrel(std::istream&);

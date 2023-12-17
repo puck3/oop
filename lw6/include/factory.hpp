@@ -11,15 +11,15 @@ public:
         std::shared_ptr<NPC> result;
         switch (type) {
             case NpcType::ElfType:
-                result = static_pointer_cast<NPC>(std::make_shared<Elf>(name, x, y));
+                result = std::static_pointer_cast<NPC>(std::make_shared<Elf>(name, x, y));
                 break;
 
             case NpcType::BanditType:
-                result = static_pointer_cast<NPC>(std::make_shared<Bandit>(name, x, y));
+                result = std::static_pointer_cast<NPC>(std::make_shared<Bandit>(name, x, y));
                 break;
 
             case NpcType::SquirrelType:
-                result = static_pointer_cast<NPC>(std::make_shared<Squirrel>(name, x, y));
+                result = std::static_pointer_cast<NPC>(std::make_shared<Squirrel>(name, x, y));
                 break;
             default:
                 break;
@@ -39,15 +39,15 @@ public:
         if (is >> type) {
             switch (type) {
                 case NpcType::ElfType:
-                    result = static_pointer_cast<NPC>(std::make_shared<Elf>(is));
+                    result = std::static_pointer_cast<NPC>(std::make_shared<Elf>(is));
                     break;
 
                 case NpcType::BanditType:
-                    result = static_pointer_cast<NPC>(std::make_shared<Bandit>(is));
+                    result = std::static_pointer_cast<NPC>(std::make_shared<Bandit>(is));
                     break;
 
                 case NpcType::SquirrelType:
-                    result = static_pointer_cast<NPC>(std::make_shared<Squirrel>(is));
+                    result = std::static_pointer_cast<NPC>(std::make_shared<Squirrel>(is));
                     break;
                 default:
                     break;

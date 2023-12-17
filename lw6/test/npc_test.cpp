@@ -17,8 +17,6 @@ protected:
 };
 
 TEST_F(NPCTest, AcceptTest) {
-    // usage: defender->accept(attacker)
-    // elf > bandit > squirrel > elf ...
     ASSERT_TRUE(bandit->accept(elf));
     ASSERT_FALSE(elf->accept(elf));
     ASSERT_FALSE(squirrel->accept(elf));
