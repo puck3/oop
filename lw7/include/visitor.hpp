@@ -1,8 +1,5 @@
 #pragma once
 #include "npc.hpp"
-#include "elf.hpp"
-#include "bandit.hpp"
-#include "squirrel.hpp"
 
 class Visitor {
 public:

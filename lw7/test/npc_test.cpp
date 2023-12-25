@@ -31,7 +31,7 @@ TEST_F(NPCTest, AcceptTest) {
 TEST_F(NPCTest, IsCloseTest) {
     ASSERT_TRUE(elf->is_close(bandit));
     ASSERT_TRUE(bandit->is_close(squirrel));
-    ASSERT_FALSE(elf->is_close(squirrel));
+    ASSERT_FALSE(squirrel->is_close(elf));
 }
 
 
